@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
 const factSchema = new mongoose.Schema (
     {
-        label: { type: string, required: true},
-        value: { type: string, required: true }
+        label: { type: String, required: true},
+        value: { type: String, required: true },
     },
     { id_: false} 
 );

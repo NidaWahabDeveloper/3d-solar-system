@@ -21,6 +21,7 @@ export const cacheRoute = (keyPrefix) => (req, res, next) => {
   };
 
   next(); 
+};
 
 
 export const clearCacheByPrefix = (prefix) => {
