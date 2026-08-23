@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
+import { Eye, EyeOff } from "lucide-react";
 
 const Login = () => {
   const { login, loading } = useAuth();
@@ -9,6 +10,7 @@ const Login = () => {
   // form ka data ek hi object mein rakha hai
   const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false); // eye toggle ke liye state
 
   // ye function har input field ke liye kaam karega (name se pata chal jata hai konsa field hai)
   const handleChange = (e) => {
@@ -52,15 +54,25 @@ const Login = () => {
           <label className="mb-1 block text-sm font-medium text-ink" htmlFor="password">
             Password
           </label>
-          <input
-            id="password"
-            name="password"
-            type="password"
-            required
-            value={form.password}
-            onChange={handleChange}
-            className="w-full rounded-xl border border-line bg-panel p-3 text-sm text-ink focus:border-accent"
-          />
+          <div className="relative">
+            <input
+              id="password"
+              name="password"
+              type={showPassword ? "text" : "password"}
+              required
+              value={form.password}
+              onChange={handleChange}
+              className="w-full rounded-xl border border-line bg-panel p-3 pr-11 text-sm text-ink focus:border-accent"
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword((prev) => !prev)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-ink"
+              tabIndex={-1}
+            >
+              {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+            </button>
+          </div>
         </div>
 
         {error && <p className="text-sm text-coral">{error}</p>}
