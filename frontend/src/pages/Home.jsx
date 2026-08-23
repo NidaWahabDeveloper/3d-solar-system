@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import api from "../api/axios.js";
 import PlanetCard from "../components/PlanetCard.jsx";
+import SunSphere from "../components/SunSphere.jsx";
 
 const Home = () => {
   const [planets, setPlanets] = useState([]);
@@ -25,8 +26,8 @@ const Home = () => {
 
   return (
     <div className="mx-auto max-w-6xl px-6 py-12">
-      
-      <section className="mb-16 flex flex-col items-start gap-4">
+    
+      <section className="mb-16 flex flex-col items-center gap-4">
         <span className="font-mono text-xs uppercase tracking-widest text-accent">
           An interactive field guide
         </span>
@@ -37,6 +38,16 @@ const Home = () => {
           Spin real-time 3D models, listen to narrated facts, discuss with other explorers,
           and test what you've learned with a timed quiz -- for every planet in our system.
         </p>
+
+        {/* start sun component */}
+
+        <section className="mb-16 flex flex-col-reverse items-center gap-8 sm:flex-row sm:justify-between">
+
+  <SunSphere />
+</section>
+
+{/* close sun component */}
+
       </section>
 
       
