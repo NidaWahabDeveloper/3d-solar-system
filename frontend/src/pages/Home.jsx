@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import api from "../api/axios.js";
 import PlanetCard from "../components/PlanetCard.jsx";
 import SunSphere from "../components/SunSphere.jsx";
+import SolarSystemOrbit from "../components/SolarSystemOrbit.jsx";
 
 const Home = () => {
   const [planets, setPlanets] = useState([]);
@@ -65,6 +66,7 @@ const Home = () => {
           <PlanetCard key={planet._id} planet={planet} />
         ))}
       </div>
+      <SolarSystemOrbit />
     </div>
   );
 };
