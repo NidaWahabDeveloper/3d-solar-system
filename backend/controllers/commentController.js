@@ -39,7 +39,7 @@ export const addComment = asyncHandler(async (req, res) => {
   await newComment.populate("user", "name");
 
   const io = req.app.get("io");
-io.emit("newComment", comment); // sab connected users ko forun naya comment bhej do
+io.emit("newComment", newComment); // sab connected users ko forun naya comment bhej do
 
   res.status(201).json({ success: true, data: newComment });
 });

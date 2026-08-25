@@ -44,7 +44,7 @@ const CommentSection = ({ planetId }) => {
     setPosting(true);
     try {
       const res = await api.post(`/planets/${planetId}/comments`, { text });
-      setComments((prev) => [res.data.data, ...prev]);
+      // setComments((prev) => [res.data.data, ...prev]);
       setText("");
     } catch (err) {
       alert(err.response?.data?.message || "Could not post comment");
