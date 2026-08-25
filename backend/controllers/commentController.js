@@ -38,6 +38,9 @@ export const addComment = asyncHandler(async (req, res) => {
   // frontend ko turant author ka naam chahiye hoga render karne ke liye
   await newComment.populate("user", "name");
 
+  const io = req.app.get("io");
+io.emit("newComment", comment); // sab connected users ko forun naya comment bhej do
+
   res.status(201).json({ success: true, data: newComment });
 });
 
@@ -59,8 +62,11 @@ export const deleteComment = asyncHandler(async (req, res) => {
     res.status(403);
     throw new Error("Not authorized to delete this comment");
   }
+  
 
   await comment.deleteOne();
+
+  
 
   res.status(200).json({ success: true, data: {} });
 });

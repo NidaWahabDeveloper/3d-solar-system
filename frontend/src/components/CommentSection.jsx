@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import api from "../api/axios.js";
 import { useAuth } from "../context/AuthContext.jsx";
+import { io } from "socket.io-client";
+
+const socket = io(import.meta.env.VITE_API_URL.replace("/api", ""));
 
 const CommentSection = ({ planetId }) => {
   const { user } = useAuth();
@@ -8,6 +11,16 @@ const CommentSection = ({ planetId }) => {
   const [text, setText] = useState("");
   const [loading, setLoading] = useState(true);
   const [posting, setPosting] = useState(false);
+  
+
+  useEffect(() => {
+  socket.on("newComment", (comment) => {
+    if (comment.planet === planetId) {
+      setComments((prev) => [comment, ...prev]);
+    }
+  });
+  return () => socket.off("newComment");
+}, [planetId]);
 
   useEffect(() => {
     const fetchComments = async () => {

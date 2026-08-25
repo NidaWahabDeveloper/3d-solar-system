@@ -1,6 +1,7 @@
 
 import { useState, useEffect } from "react";
 import api from "../api/axios.js";
+import AdminQuizManager from "../components/AdminQuizManager.jsx";
 
 
 const emptyForm = {
@@ -92,6 +93,9 @@ const AdminDashboard = () => {
               className="w-full rounded-xl border border-line p-2.5 text-sm focus:border-accent"
             />
           </div>
+          <div className="mt-10">
+  <AdminQuizManager planets={planets} />
+</div>
 
           <div>
             <label className="mb-1 block text-sm font-medium text-ink">Slug (auto-generated, URL-safe)</label>
