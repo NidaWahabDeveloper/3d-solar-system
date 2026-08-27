@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import AdminRoute from "./components/AdminRoute.jsx";
+import VerifyEmail from "./pages/VerifyEmail.jsx";
 
 import Home from "./pages/Home.jsx";
 import PlanetDetail from "./pages/PlanetDetail.jsx";
@@ -20,6 +21,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/planets/:slug" element={<PlanetDetail />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/verify-email/:token" element={<VerifyEmail />} />
           <Route path="/register" element={<Register />} />
 
           {/* Protected routes -agr login nhi hn to login page p redirect krdega
