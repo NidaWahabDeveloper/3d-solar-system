@@ -121,3 +121,25 @@ export const getMe = asyncHandler(async (req, res) => {
   // req.user was already attached by the `protect` middleware -- no extra DB call needed
   res.status(200).json({ success: true, data: req.user });
 });
+
+// @desc    Verify a user's email using the token from their verification link
+// @route   GET /api/auth/verify/:token
+// @access  Public
+export const verifyEmail = asyncHandler(async (req, res) => {
+  const { token } = req.params;
+
+  // Database me wahi token dhoondo jo link me tha
+  const user = await User.findOne({ verificationToken: token });
+
+  if (!user) {
+    res.status(400);
+    throw new Error("Invalid or expired verification link");
+  }
+
+  // Token match hua -- ab user ko verified mark karo, aur token ko hata do (dobara use na ho)
+  user.emailVerified = true;
+  user.verificationToken = null;
+  await user.save();
+
+  res.status(200).json({ success: true, message: "Email verified successfully" });
+});
