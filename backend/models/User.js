@@ -32,6 +32,14 @@ const userSchema = new mongoose.Schema(
       enum: ["user", "admin"], // bas yehi do values allowed hain
       default: "user", // by default har koi normal user hoga, admin manually banana padega
     },
+    emailVerified: {
+  type: Boolean,
+  default: false, // naya user register hote hi verified NAHI hota, link click karne ke baad true hoga
+},
+verificationToken: {
+  type: String, // ek random string jo verification link me jayegi, taake fake requests na ho sakein
+  default: null,
+},
   },
   {
     timestamps: true, // createdAt aur updatedAt khud add ho jayenge
