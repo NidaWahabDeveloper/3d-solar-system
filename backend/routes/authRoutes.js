@@ -1,6 +1,7 @@
 import express from "express";
 import { body } from "express-validator"; // lets us write validation rules declaratively
-import { registerUser, loginUser, getMe } from "../controllers/authController.js";
+// import { registerUser, loginUser, getMe } from "../controllers/authController.js";
+import { registerUser, loginUser, getMe, verifyEmail } from "../controllers/authController.js";
 import { protect } from "../middleware/auth.js";
 import { validateRequest } from "../middleware/validate.js";
 import { authLimiter } from "../middleware/rateLimiter.js";
@@ -37,5 +38,7 @@ router.post(
 // GET /api/auth/me
 // protect middleware checks for a valid JWT before letting the request through
 router.get("/me", protect, getMe);
+// GET /api/auth/verify/:token -- public, koi bhi (bina login ke) link click kar sake
+router.get("/verify/:token", verifyEmail);
 
 export default router;
