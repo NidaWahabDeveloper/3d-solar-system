@@ -1,7 +1,7 @@
 // Page shown when a user clicks the verification link from their email.
 // It reads the token from the URL, calls the backend to verify it, and shows the result.
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useParams, Link } from "react-router-dom";
 import api from "../api/axios.js";
 
@@ -9,9 +9,13 @@ const VerifyEmail = () => {
   const { token } = useParams(); // pulls the :token part out of the URL
   const [status, setStatus] = useState("verifying"); // "verifying" | "success" | "error"
   const [message, setMessage] = useState("");
+  const hasVerified = useRef(false);
 
   useEffect(() => {
-    const verify = async () => {
+  if (hasVerified.current) return;
+  hasVerified.current = true;
+
+  const verify = async () => {
       try {
         const res = await api.get(`/auth/verify/${token}`);
         setStatus("success");
