@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import AdminRoute from "./components/AdminRoute.jsx";
 import VerifyEmail from "./pages/VerifyEmail.jsx";
+import { useState, useEffect } from "react";
 
 import Home from "./pages/Home.jsx";
 import PlanetDetail from "./pages/PlanetDetail.jsx";
@@ -10,7 +11,40 @@ import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
 import AdminDashboard from "./pages/AdminDashboard.jsx";
 
+function isWebGLAvailable() {
+  try {
+    const canvas = document.createElement("canvas");
+    return !!(
+      window.WebGLRenderingContext &&
+      (canvas.getContext("webgl") || canvas.getContext("experimental-webgl"))
+    );
+  } catch (e) {
+    return false;
+  }
+}
+
+
 function App() {
+  const [webglOk, setWebglOk] = useState(true);
+
+  useEffect(() => {
+    setWebglOk(isWebGLAvailable());
+  }, []);
+
+  if (!webglOk) {
+    return (
+      <div className="mx-auto max-w-2xl px-6 py-24 text-center">
+        <p className="font-display text-2xl text-ink">
+          3D View Not Supported on This Device
+        </p>
+        <p className="mt-4 text-ink/70">
+          Your browser or graphics driver doesn't support WebGL, which is
+          needed to view the 3D solar system. Please try a different device
+          or update your graphics drivers.
+        </p>
+      </div>
+    );
+  }
   return (
     <div className="min-h-screen bg-surface">
       <Navbar />
