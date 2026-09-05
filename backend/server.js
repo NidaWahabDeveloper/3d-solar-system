@@ -27,6 +27,7 @@ if (process.env.NODE_ENV !== "test") {
 }
 
 const app = express(); 
+app.set('trust proxy', 1);
 app.use(helmet()); 
 app.use(compression()); 
 app.use(
